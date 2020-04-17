@@ -29,7 +29,7 @@ public class OkHttpUtils {
             OkHttpClient = new OkHttpClient.Builder().build();
         }
         return OkHttpClient;
-    }
+    } 
 }
 ```
 ```xml
