@@ -42,3 +42,26 @@ ExtClassLoader： 负责装载JRE ext中的jar包
 AppClassLoader： 负责装载Classpath路径下的类包
 
 *父类委托机制可以避免，有人恶意编写基础类（java.lang.String）并装载到Jvm中，有了父类委托机制就永远是调用父类的装载器在装载*
+
+## JAVA反射机制
+有三个主要的反射类：
+- **Constructor:**
+    类的构造函数反射类，通过Class#getConstructors()方法可以获取类的所有构造函数反射对象数组。通过newINstance（），可以创建一个对象类的实例。
+- **Method：**
+    类方法的反射类，通过Class#getDeclaredMethods()方法可以获取类的所有方法反射对象数组Method[]。最主要的方法是invoke（）。
+    - Class getReturnType(): 获取方法的返回值类型。
+    - Class[] getParameterTypes(): 获取方法的入参类型数组。
+    - Class[] getExceptionTypes(): 获取方法的异常类型数组。
+    - Annotation[][] getParameterAnnotations(): 获取方法的注解信息。
+- **Filed:**
+    类的成员变量的反射类，通过Class#getDeclaredFields()方法可以获取类的成员变量的反射对象数组。  
+*在获取private或者protected成员变量和方法的时候，必须通过setAccessible(boolean access)取消java语言的检查，否则会抛出IllegalAccessException.*
+
+
+## 资源抽象接口 Resource
+实现类：  
+- WritableResource：可写资源接口。有两个实现类，即FileSystemResource和PathResource。
+- ByteArrayResource: 二进制数组资源
+- ClassPathResource：类路径下的资源，以==相对路径==的方式表示
+- 
+ 
