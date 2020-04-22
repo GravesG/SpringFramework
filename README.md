@@ -35,4 +35,4 @@ public class OkHttpUtils {
 ```xml
 <bean class="org.javaboy.OkHttpUtils" id="okHttpUtils"/>
 <bean class="okhttp3.OkHttpClient" factory-bean="okHttpUtils" factory-method="getInstance" id="okHttpClient"></bean>
-```
+``` 
