@@ -63,5 +63,56 @@ AppClassLoader： 负责装载Classpath路径下的类包
 - WritableResource：可写资源接口。有两个实现类，即FileSystemResource和PathResource。
 - ByteArrayResource: 二进制数组资源
 - ClassPathResource：类路径下的资源，以==相对路径==的方式表示
-- 
+- FileSystemResource: 文件资源，资源以文件系统路径的方式表示，如D:/conf/bean.xml
+- InputStreamResource: 以输入流返回表示的资源
+- ServletContextResource：为访问web容器上下文中的资源而设计的类，负责以相对于web应用根目录的路径加载资源。==该类还可以直接总Jar中直接访问资源==
+- UrlResource：URL封装lejava.net.URL, 能访问任何通过URL表示的资源
+- PathResource: Spring4.0 提供的新类，使用户能够访问任何可以通过URL,Path,系统文件路径表示的资源，如文件系统的资源，HTTP资源，FTP资源等。
+
+```java
+public static void main(String[] args){
+    try{
+        String filePath = "D:/masterSpring/code/chapter4/src/main/resources/conf/file1.txt";
+        
+        //1.使用系统文件路径方式加载文件
+        WritableResource res1 = new PathResource(filePath);
+        
+        //2.使用类路径方式加载文件
+        Resource res2 = new ClassPathResource("conf/file1.txt");
+        
+        //3.使用WritableResource接口写资源文件
+        OutputStream stream1 = res1.getOutputStream();
+        stream1.write("****".getBytes());
+        stream1.close();
+        
+        //4.使用Resource接口读资源文件
+        InputStream ins1 = res1.getInputStream();
+        InputStream ins2 = res2.getInputStream();
+        
+        ByteArrayPutPutStream baos = new ByteArrayOutputStream();
+        int i = 0;
+        while((i=ins1.read()) != -1){
+            baos.write(i);
+        }
+        sout(baos.toString());
+    }
+    
+}
+```
+
+## 资源加载
+前缀类型：classPath: , file:, http://, ftp://, 没有前缀  
+区分classPath:和classPath*: classPath只会在第一个加载的包下查询，classPath* 会扫描所有这些Jar包及以下出现的路径  
+ResourceLoader 接口仅支持带资源类型前缀的表达式，不支持Ant风格  
+ResourcePatternResolver 支持带资源类型前缀，也支持Ant风格  
+**对于打在JAR中的资源文件，我们可以使用Resource#getInputStream()方法获取，如果使用getFile()会抛出FileNotFoundException** 
+  
+   
+## BeanFactory 
+通过BeanFactory启动IOC容器时，并不会初始化配置文件中定义的bean，初始化动作发生在第一次调用的时候。  
+*并且在初始化BEanFactory的时候，需要提供一种日志框架，这样启动才不会报错。*  
+
+## ApplicationContext
+主要实现类是：ClassPathXmlApplicationContext 和 FileSystemXmlApplicationContext
+
  
