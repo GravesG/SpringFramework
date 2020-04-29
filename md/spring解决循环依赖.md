@@ -25,7 +25,7 @@ spring内部维护了3个Map，也就是三级缓存。
 ## 如何自己实现
 
 ```java
-public class A {
+public class A { 
     private B b;
 }
 ```
