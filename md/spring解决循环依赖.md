@@ -22,7 +22,7 @@ spring内部维护了3个Map，也就是三级缓存。
 为什么成为后两个Map为垫脚石，假设最终放在singletonObjects的Bean是你想要的一杯“凉白开”。
 那么Spring准备了两个杯子，即**singletonFactories**和**earlySingletonObjects**来回“倒腾”几番，把热水晾成“凉白开”放到**singletonObjects**中。  
 
-## 如何自己实现
+## 如何自己实现 
 
 ```java
 public class A { 
