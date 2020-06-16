@@ -1,0 +1,154 @@
+PUT /test1/type1/2
+{
+  "name": "郭小则焘",
+  "age": 5
+}
+
+PUT test2
+{
+  "mappings": {
+    "properties": {
+      "name":{
+        "type": "text"
+      },
+      "age":{
+        "type": "long"
+      },
+      "birthday":{
+        "type": "date"
+      }
+    }
+  }
+}
+
+GET test2
+
+GET test1/type1/_search
+{
+  "query": {
+    "match": {
+      "name": "则焘"
+    }
+  },
+  "sort": [
+    {
+      "age": {
+        "order": "desc"
+      }
+    }
+  ],
+  "from": 0,
+  "size": 3
+}
+
+GET test1/type1/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "name": "则焘"
+          }
+        },
+        {
+          "match": {
+            "age": "5"
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET test1/type1/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "name": "则焘"
+          }
+        }
+      ],
+      "filter": [
+        {
+          "range": {
+            "age": {
+              "gte": 1,
+              "lte": 3
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+PUT testdb
+{
+  "mappings": {
+    "properties": {
+      "name":{
+        "type": "text"
+      },
+      "desc":{
+        "type": "keyword"
+      }
+    }
+  }
+}
+
+
+
+PUT testdb/_doc/1
+{
+  "name": "则焘Java name",
+  "desc": "则焘Java desc"
+}
+
+PUT testdb/_doc/2
+{
+  "name": "则焘Java name",
+  "desc": "则焘Java desc2"
+}
+
+GET _analyze
+{
+  "analyzer": "keyword",
+  "text": "则焘Java name"
+}
+
+GET _analyze
+{
+  "analyzer": "standard",
+  "text": "则焘Java name"
+}
+
+GET testdb/_search
+{
+  "query": {
+    "term": {
+        "name": "焘"
+    }
+  }
+}
+
+GET testdb/_search
+{
+  "query": {
+    "term": {
+        "desc": "则焘Java desc"
+    }
+  }
+}
+
+GET testdb
+
+PUT testdb/_doc/3
+{
+  "t1": "22",
+  "t2": "2020-4-6"
+}
