@@ -106,8 +106,8 @@ public static void main(String[] args){
 ResourceLoader 接口仅支持带资源类型前缀的表达式，不支持Ant风格  
 ResourcePatternResolver 支持带资源类型前缀，也支持Ant风格  
 **对于打在JAR中的资源文件，我们可以使用Resource#getInputStream()方法获取，如果使用getFile()会抛出FileNotFoundException** 
-  
-   
+
+
 ## BeanFactory 
 通过BeanFactory启动IOC容器时，并不会初始化配置文件中定义的bean，初始化动作发生在第一次调用的时候。  
 *并且在初始化BEanFactory的时候，需要提供一种日志框架，这样启动才不会报错。*  
@@ -116,3 +116,10 @@ ResourcePatternResolver 支持带资源类型前缀，也支持Ant风格
 主要实现类是：ClassPathXmlApplicationContext 和 FileSystemXmlApplicationContext
 
  
+
+> 注解说明
+
+- @Autowrite: 自动装配通过类型
+- @Resource：自动装配通过名字，类型
+- @Nullable： 字段标记了这个注解，说明字段可以为null
+
