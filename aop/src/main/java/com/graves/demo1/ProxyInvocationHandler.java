@@ -20,7 +20,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
 
     // 获取代理对象
     public Object getProxy(){
-        return Proxy.newProxyInstance(ProxyInvocationHandler.class.getClassLoader(),target.getClass().getInterfaces(),new ProxyInvocationHandler());
+        return Proxy.newProxyInstance(ProxyInvocationHandler.class.getClassLoader(),target.getClass().getInterfaces(),this);
     }
 
     // 执行代理方法
